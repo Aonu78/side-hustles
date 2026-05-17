@@ -33,7 +33,7 @@ Route::view('/contact', 'pages.simple', [
 ])->name('contact');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
