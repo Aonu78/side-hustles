@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -14,8 +15,14 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        $redirect = $request->query('redirect');
+
+        if (is_string($redirect) && $this->isSafeRedirectPath($redirect)) {
+            $request->session()->put('url.intended', $redirect);
+        }
+
         return view('auth.login');
     }
 
@@ -43,5 +50,12 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    private function isSafeRedirectPath(string $path): bool
+    {
+        return Str::startsWith($path, '/')
+            && ! Str::startsWith($path, '//')
+            && ! Str::contains($path, ['://', "\r", "\n"]);
     }
 }

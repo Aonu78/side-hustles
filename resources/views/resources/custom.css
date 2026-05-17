@@ -20,6 +20,17 @@ body {
   color: #1a2236;
 }
 
+.auth-shell {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(26, 138, 92, 0.14), transparent 32%),
+    radial-gradient(circle at 85% 10%, rgba(245, 166, 35, 0.14), transparent 28%),
+    linear-gradient(135deg, #faf8f5 0%, #f5f3ef 55%, #eef7f2 100%);
+}
+
+.auth-card {
+  border-radius: 0.75rem;
+}
+
 h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
